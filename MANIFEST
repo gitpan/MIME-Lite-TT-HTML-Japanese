@@ -1,0 +1,11 @@
+Build.PL
+Changes
+lib/MIME/Lite/TT/HTML/Japanese.pm
+lib/MIME/Lite/TT/HTML/Japanese/Japanese.pod
+LICENSE
+Makefile.PL
+MANIFEST
+README
+t/001_load.t
+Todo
+META.yml
