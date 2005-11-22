@@ -7,7 +7,7 @@ use Jcode;
 use DateTime::Format::Mail;
 use Carp;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -64,7 +64,7 @@ sub new {
 
     my $msg = MIME::Lite->new(
         %$options,
-        Subject => encode_subject( $options->{ Subject }, $icode ),
+        Subject => encode_subject( delete $options->{ Subject }, $icode ),
         Type    => 'multipart/alternative',
         Date    => DateTime::Format::Mail->format_datetime( DateTime->now->set_time_zone('Asia/Tokyo') ),
     );

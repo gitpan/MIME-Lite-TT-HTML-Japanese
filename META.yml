@@ -1,6 +1,6 @@
 ---
 name: MIME-Lite-TT-HTML-Japanese
-version: 0.01
+version: 0.02
 author:
   - Daisuke Murase E<lt>typester@cpan.orgE<gt>
 abstract: Create html mail with MIME::Lite and TT
@@ -9,6 +9,7 @@ resources:
   license: http://dev.perl.org/licenses/
 requires:
   Carp: 0
+  DateTime::Format::Mail: 0
   Jcode: 0
   MIME::Lite: 0
   Template: 0
@@ -16,5 +17,5 @@ requires:
 provides:
   MIME::Lite::TT::HTML::Japanese:
     file: lib/MIME/Lite/TT/HTML/Japanese.pm
-    version: 0.01
+    version: 0.02
 generated_by: Module::Build version 0.2703

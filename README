@@ -1,15 +1,44 @@
-pod2text MIME::Lite::TT::HTML::Japanese.pm > README
+MIME::Lite::TT::HTML::JUaspearneCsoen(t3r)ibuted Perl DoMcIuMmEe:n:tLaittieo:n:TT::HTML::Japanese(3)
 
-If this is still here it means the programmer was too lazy to create the readme file.
 
-You can create it now by using the command shown above from this directory.
 
-At the very least you should be able to use this set of instructions
-to install the module...
+NNAAMMEE
+       MIME::Lite::TT::HTML::Japanese - Create html mail with MIME::Lite and
+       TT
 
-perl Build.PL
-./Build
-./Build test
-./Build install
+SSYYNNOOPPSSIISS
+           use MIME::Lite::TT::HTML::Japanese;
 
-If you are on a windows box you should use 'nmake' rather than 'make'.
+           my $msg = MIME::Lite::HTML::Japanese->new(
+               From        => 'from@example.com',
+               To          => 'to@example.com',
+               Subject     => 'Subject',
+               Template    => {
+                   html => 'mail.html',
+                   text => 'mail.txt',
+               },
+               Icode       => 'euc', # input code (Jcode Format)
+               TmplIcode   => 'jis', # Template input code (Optional)
+               TmplOptions => \%options,
+               TmplParams  => \%params,
+           );
+
+           $msg->send;
+
+DDEESSCCRRIIPPTTIIOONN
+       This module provide easy interface to make MIME::Lite object with html
+       formatted mail.
+
+MMEETTHHOODDSS
+       new return MIME::Lite object with Japanese html mail format.
+
+AAUUTTHHOORR
+       Daisuke Murase <typester@cpan.org>
+
+LLIICCEENNSSEE
+       This library is free software, you can redistribute it and/or modify it
+       under the same terms as Perl itself.
+
+
+
+perl v5.8.4                       2005-11-19 MIME::Lite::TT::HTML::Japanese(3)

@@ -9,6 +9,7 @@ Module::Build->new
           'MIME::Lite' => 0,
           Jcode        => 0,
           Carp         => 0,
+          'DateTime::Format::Mail' => 0,
           perl         => '5.6.0',
       },
     )->create_build_script;
