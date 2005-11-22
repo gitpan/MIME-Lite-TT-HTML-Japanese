@@ -7,7 +7,7 @@ use Jcode;
 use DateTime::Format::Mail;
 use Carp;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 NAME
 
@@ -17,7 +17,7 @@ MIME::Lite::TT::HTML::Japanese - Create html mail with MIME::Lite and TT
 
     use MIME::Lite::TT::HTML::Japanese;
     
-    my $msg = MIME::Lite::HTML::Japanese->new(
+    my $msg = MIME::Lite::TT::HTML::Japanese->new(
         From        => 'from@example.com',
         To          => 'to@example.com',
         Subject     => 'Subject',
@@ -62,9 +62,11 @@ sub new {
 
     my $tt = Template->new( delete $options->{ TmplOptions } );
 
+    my $subject = encode_subject( delete $options->{ Subject }, $icode );
+
     my $msg = MIME::Lite->new(
         %$options,
-        Subject => encode_subject( delete $options->{ Subject }, $icode ),
+        Subject => $subject,
         Type    => 'multipart/alternative',
         Date    => DateTime::Format::Mail->format_datetime( DateTime->now->set_time_zone('Asia/Tokyo') ),
     );
@@ -88,8 +90,8 @@ sub new {
 
 sub encode_subject {
     my ( $subject, $icode ) = @_;
-    my $str = remove_utf8_flag( $subject );
-    Jcode->new( $str, $icode )->mime_encode;
+    $subject = remove_utf8_flag( $subject );
+    Jcode->new( $subject, $icode )->mime_encode;
 }
 
 sub encode_body {
