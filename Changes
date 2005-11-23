@@ -1,5 +1,8 @@
 Revision history for Perl module MIME::Lite::TT::HTML::Japanese
 
+0.04 2005-11-24T00:25:11+09:00
+    - fixed Japanese.pod (thx to KIMURA, takefumi)
+
 0.03 2005-11-22T18:04:45+09:00
     - fixed subject bug. (thx to imbe)
 
