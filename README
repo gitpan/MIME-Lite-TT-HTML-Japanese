@@ -25,7 +25,15 @@ DESCRIPTION
     formatted mail.
 
 METHODS
-    new return MIME::Lite object with Japanese html mail format.
+  new
+    return MIME::Lite object with Japanese html mail format.
+
+  encode_subject
+  encode_body
+  generate_text
+  remove_utf8_flag
+SEE ALSO
+    MIME::Lite, Template, MIME::Lite::TT::Japanese
 
 AUTHOR
     Daisuke Murase <typester@cpan.org>

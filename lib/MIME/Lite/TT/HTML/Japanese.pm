@@ -7,7 +7,7 @@ use Jcode;
 use DateTime::Format::Mail;
 use Carp;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 NAME
 
@@ -39,66 +39,83 @@ This module provide easy interface to make MIME::Lite object with html formatted
 
 =head1 METHODS
 
-=over 4
-
-=item new
+=head2 new
 
 return MIME::Lite object with Japanese html mail format.
 
 =cut
 
 sub new {
-    my $class = shift;
+    my $class   = shift;
     my $options = @_ > 1 ? {@_} : $_[0];
 
-    my $template = delete $options->{ Template };
+    my $template = delete $options->{Template};
     return croak "html template not defined" unless $template->{html};
 
-    $template->{text} = generate_text( $template->{html} ) unless $template->{text};
+    $template->{text} = generate_text( $template->{html} )
+        unless $template->{text};
 
-    my $icode        = delete $options->{ Icode };
-    my $tmpl_icode   = delete $options->{ TmplIcode   };
-    my $tmpl_params  = delete $options->{ TmplParams  };
+    my $icode       = delete $options->{Icode};
+    my $tmpl_icode  = delete $options->{TmplIcode};
+    my $tmpl_params = delete $options->{TmplParams};
 
-    my $tt = Template->new( delete $options->{ TmplOptions } );
+    my $tt = Template->new( delete $options->{TmplOptions} );
 
-    my $subject = encode_subject( delete $options->{ Subject }, $icode );
+    my $subject = encode_subject( delete $options->{Subject}, $icode );
 
     my $msg = MIME::Lite->new(
         %$options,
         Subject => $subject,
         Type    => 'multipart/alternative',
-        Date    => DateTime::Format::Mail->format_datetime( DateTime->now->set_time_zone('Asia/Tokyo') ),
+        Date    => DateTime::Format::Mail->format_datetime(
+            DateTime->now->set_time_zone('Asia/Tokyo')
+        ),
     );
 
     my ( $text, $html );
-    $tt->process( $template->{text}, $tmpl_params, \$text ) or croak $tt->error;
-    $tt->process( $template->{html}, $tmpl_params, \$html ) or croak $tt->error;
+    $tt->process( $template->{text}, $tmpl_params, \$text )
+        or croak $tt->error;
+    $tt->process( $template->{html}, $tmpl_params, \$html )
+        or croak $tt->error;
 
     $msg->attach(
-        Type => 'text/plain; charset=iso-2022-jp',
-        Data => encode_body( $text, $tmpl_icode || $icode ),
+        Type     => 'text/plain; charset=iso-2022-jp',
+        Data     => encode_body( $text, $tmpl_icode || $icode ),
+        Encoding => '7bit',
     );
 
     $msg->attach(
-        Type => 'text/html; charset=iso-2022-jp',
-        Data => encode_body( $html, $tmpl_icode || $icode ),
+        Type     => 'text/html; charset=iso-2022-jp',
+        Data     => encode_body( $html, $tmpl_icode || $icode ),
+        Encoding => '7bit',
     );
 
     $msg;
 }
 
+=head2 encode_subject
+
+=cut
+
 sub encode_subject {
     my ( $subject, $icode ) = @_;
-    $subject = remove_utf8_flag( $subject );
+    $subject = remove_utf8_flag($subject);
     Jcode->new( $subject, $icode )->mime_encode;
 }
 
+=head2 encode_body
+
+=cut
+
 sub encode_body {
     my ( $body, $icode ) = @_;
-    my $str = remove_utf8_flag( $body );
+    my $str = remove_utf8_flag($body);
     Jcode->new( $str, $icode )->jis;
 }
+
+=head2 generate_text
+
+=cut
 
 sub generate_text {
     my $str = shift;
@@ -106,11 +123,17 @@ sub generate_text {
     $str;
 }
 
+=head2 remove_utf8_flag
+
+=cut
+
 sub remove_utf8_flag {
     pack 'C0A*', shift;
 }
 
-=back
+=head1 SEE ALSO
+
+L<MIME::Lite>, L<Template>, L<MIME::Lite::TT::Japanese>
 
 =head1 AUTHOR
 

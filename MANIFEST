@@ -1,11 +1,13 @@
 Build.PL
 Changes
 lib/MIME/Lite/TT/HTML/Japanese.pm
-lib/MIME/Lite/TT/HTML/Japanese/Japanese.pod
+lib/MIME/Lite/TT/HTML/Japanese/nihongo.pod
 LICENSE
 Makefile.PL
 MANIFEST
+META.yml
 README
 t/001_load.t
+t/002_pod.t
+t/003_podcoverage.t
 Todo
-META.yml

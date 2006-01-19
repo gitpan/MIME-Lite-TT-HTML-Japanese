@@ -8,7 +8,7 @@ MIME::Lite::TT::HTML::Japanese - Template-Toolkit によるHTMLメール作成�
 
     use MIME::Lite::TT::HTML::Japanese;
 
-    my $msg = MIME::Lite::TT::HTML::Japanese->new(
+    my $msg = MIME::Lite::HTML::Japanese->new(
         From        => 'from@example.com',
         To          => 'to@example.com',
         Subject     => 'Subject',
@@ -19,7 +19,6 @@ MIME::Lite::TT::HTML::Japanese - Template-Toolkit によるHTMLメール作成�
         TmplOptions => \%options,
         TmplParams  => \%params,
         Icode       => 'euc',    # input characterset (Jcode format)
-        TmplIcode   => 'jis',    # Template characterset (Optional)
     );
     
     $msg->send;
@@ -36,36 +35,7 @@ C<MIME::Lite> と C<Template> をつかって HTML メールを作成するモ�
 
 %option を元に MIME::Lite でメールを作成し、その MIME::Lite オブジェクトを返す。
 
-%option の値で、このモジュール特有のものは
-
-=over 8
-
-=item Template
-
-ハッシュリファレンス。ここで html テンプレートと text テンプレートを指定する。
-
-html テンプレートは必須。text テンプレートは指定されなかった場合、html から自動作成される。
-
-=item TmplOptions
-
-Template モジュールへ渡すオプション。
-
-=item TmplParams
-
-Template へ渡すパラメータ。
-
-=item Icode
-
-入力文字コード。(たいていはプログラム自体の文字コード)
-Jcode のフォーマット(euc|sjis|jis|utf8)で渡す。
-
-=item TmplIcode
-
-テンプレートの文字コード。Icode と異なる場合に指定する。
-
-=back
-
-で、それ以外の値はそのまま MIME::Lite に渡される。
+%option のとれる値。
 
 =back
 
@@ -80,4 +50,4 @@ and/or modify it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-C<MIME::Lite>, C<Template>, C<MIME::Lite::TT::Japanese>
+L<MIME::Lite>, L<Template>, L<MIME::Lite::TT::Japanese>
