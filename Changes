@@ -1,5 +1,8 @@
 Revision history for Perl module MIME::Lite::TT::HTML::Japanese
 
+0.06 2010-01-06T23:58:48+09:00
+    - switch to Module::Install
+
 0.05 2006-01-19T17:11:08+09:00
     - fixed mime part's header (thanks to H.Syoji)
     - fixed japanese pod

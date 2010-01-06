@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-MIME::Lite::TT::HTML::Japanese - Template-Toolkit によるHTMLメール作成モジュール
+MIME::Lite::TT::HTML::Japanese.ja - Template-Toolkit によるHTMLメール作成モジュール
 
 =head1 SYNOPSIS
 
